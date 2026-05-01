@@ -10,8 +10,11 @@
 
     :root {
       --gold: #C8963E;
-      --gold-light: rgba(200,150,62,0.10);
+      --gold-mid: rgba(200,150,62,0.18);
+      --gold-light: rgba(200,150,62,0.08);
       --green: #1D9E75;
+      --green-dark: #156b50;
+      --green-light: rgba(29,158,117,0.10);
       --cream: #FAFAF7;
       --dark: #2C2C2A;
       --muted: #7A7870;
@@ -60,15 +63,20 @@
     }
 
     .header-divider {
-      height: 1px;
-      background: var(--border);
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
       margin: 20px 0 0;
+      border-radius: 2px;
+      opacity: 0.4;
     }
 
     /* ── HERO ── */
     .hero {
       padding: 56px 0 52px;
       text-align: center;
+      background: linear-gradient(160deg, rgba(29,158,117,0.07) 0%, rgba(200,150,62,0.06) 100%);
+      border-radius: 20px;
+      margin: 20px 0 0;
     }
 
     .hero h1 {
@@ -80,9 +88,11 @@
       letter-spacing: -0.8px;
     }
 
+    .hero h1 span { color: var(--green); }
+
     .hero-sub {
       font-size: 17px;
-      color: var(--muted);
+      color: var(--gold);
       margin-bottom: 24px;
       font-style: italic;
     }
@@ -93,11 +103,12 @@
       color: var(--muted);
       max-width: 500px;
       margin: 0 auto 36px;
+      padding: 0 20px;
     }
 
     .btn-primary {
       display: inline-block;
-      background: var(--dark);
+      background: var(--green);
       color: var(--white);
       padding: 16px 40px;
       border-radius: 8px;
@@ -105,12 +116,12 @@
       font-family: var(--font);
       font-weight: 600;
       text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s;
+      transition: background 0.2s, transform 0.15s;
       letter-spacing: 0.1px;
     }
 
     .btn-primary:hover {
-      opacity: 0.85;
+      background: var(--green-dark);
       transform: translateY(-1px);
     }
 
@@ -190,7 +201,8 @@
 
     .profil-karte {
       background: var(--white);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(29,158,117,0.2);
+      border-left: 3px solid var(--green);
       border-radius: 12px;
       padding: 20px 22px;
       display: flex;
@@ -199,7 +211,7 @@
     }
 
     .profil-badge {
-      background: var(--gold-light);
+      background: var(--gold-mid);
       color: var(--gold);
       font-size: 11px;
       font-weight: 700;
@@ -232,10 +244,11 @@
 
     /* Über Lisa */
     .about {
-      background: var(--dark);
+      background: var(--green-dark);
       border-radius: 16px;
       padding: 40px 36px;
       margin: 48px 0;
+      border: 1px solid rgba(29,158,117,0.3);
     }
 
     .about .section-kicker { color: var(--gold); }
@@ -262,8 +275,11 @@
     /* Bottom CTA */
     .bottom-cta {
       text-align: center;
-      padding: 48px 0 72px;
-      border-top: 1px solid var(--border);
+      padding: 48px 32px 56px;
+      background: linear-gradient(160deg, rgba(29,158,117,0.08) 0%, rgba(200,150,62,0.08) 100%);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      border: 1px solid rgba(200,150,62,0.2);
     }
 
     .bottom-cta h2 {
@@ -287,9 +303,9 @@
 
     .bottom-cta .meta {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--gold);
       margin-top: 14px;
-      opacity: 0.6;
+      opacity: 0.8;
     }
 
     /* Footer */
