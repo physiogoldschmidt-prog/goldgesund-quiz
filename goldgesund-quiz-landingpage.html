@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wie gut kennst du deinen Körper? | GOLDGESUND</title>
+  <meta name="description" content="9 Fragen. Kein Score. Ein ehrliches Bild von dir — entwickelt von Osteopathin Lisa Goldschmidt." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C8963E;
+      --gold-light: rgba(200,150,62,0.12);
+      --green: #1D9E75;
+      --cream: #FAFAF7;
+      --dark: #2C2C2A;
+      --muted: #7A7870;
+      --border: #E8E5DF;
+      --white: #ffffff;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 56px 0 48px;
+      text-align: center;
+    }
+
+    .wordmark {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 6vw, 40px);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    .hero-intro {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--white);
+      padding: 15px 36px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: var(--font);
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s, transform 0.15s;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      color: #b0ad a5;
+      margin-top: 16px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0 48px;
+    }
+
+    /* ── QUIZ ── */
+    .quiz-wrap { padding-bottom: 80px; }
+
+    .progress-wrap {
+      margin-bottom: 36px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .progress-track {
+      background: var(--border);
+      border-radius: 999px;
+      height: 3px;
+    }
+
+    .progress-fill {
+      background: var(--green);
+      height: 3px;
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .frage-wrap {
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .frage-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .frage-text {
+      font-size: clamp(18px, 4vw, 22px);
+      font-weight: 600;
+      color: var(--dark);
+      line-height: 1.4;
+      margin-bottom: 28px;
+      letter-spacing: -0.2px;
+    }
+
+    .antworten {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .antwort-btn {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      font-size: 15px;
+      font-family: var(--font);
+      color: var(--dark);
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.5;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .antwort-btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-light);
+    }
+
+    .antwort-btn:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .antwort-btn.selected {
+      border-color: var(--green);
+      background: rgba(29,158,117,0.08);
+    }
+
+    .antwort-btn.selected .radio-dot::after {
+      content: '';
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .radio-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      position: relative;
+      transition: border-color 0.15s;
+    }
+
+    .antwort-btn.selected .radio-dot {
+      border-color: var(--green);
+    }
+
+    .antwort-text { flex: 1; }
+
+    /* ── EMAIL ── */
+    .email-wrap {
+      padding: 48px 0 80px;
+      text-align: center;
+    }
+
+    .email-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+    }
+
+    .email-box h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .email-box p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .email-form input {
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      font-size: 15px;
+      font-family: var(--font);
+      color: var(--dark);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input:focus {
+      border-color: var(--gold);
+    }
+
+    .email-form input::placeholder {
+      color: #b5b2aa;
+    }
+
+    .email-submit {
+      padding: 14px;
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: var(--font);
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-top: 4px;
+    }
+
+    .email-submit:hover { opacity: 0.85; }
+
+    .email-submit:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .email-skip {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 14px;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      display: block;
+      text-align: center;
+      width: 100%;
+    }
+
+    .email-datenschutz {
+      font-size: 11px;
+      color: #b5b2aa;
+      margin-top: 10px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* ── ERGEBNIS ── */
+    .result-wrap { padding-bottom: 80px; }
+
+    .result-badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .result-titel {
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+
+    .result-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .result-empfehlung {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+    }
+
+    .result-empfehlung-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+
+    .result-empfehlung p {
+      font-size: 15px;
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: var(--font);
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .btn-cta:hover { opacity: 0.88; }
+
+    .btn-cta:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* Weiteres */
+    .weiteres {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 36px 28px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .weiteres h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .weiteres p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      padding: 13px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: var(--font);
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      transition: border-color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--white); }
+
+    .btn-secondary:focus {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .nochmal-link {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 28px;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      width: 100%;
+    }
+
+    /* Screens */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    @media (max-width: 400px) {
+      .email-box { padding: 32px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div id="screen-hero" class="screen active">
+    <div class="page">
+      <div class="hero">
+        <span class="wordmark">Goldgesund</span>
+        <h1>Wie gut kennst du deinen Körper?</h1>
+        <p class="hero-sub">9 Fragen. Kein Score. Ein ehrliches Bild von dir.</p>
+        <p class="hero-intro">
+          Dein Körper redet ständig mit dir. Aber hörst du ihm wirklich zu?
+          Dieses Quiz hilft dir herauszufinden wie gut die Verbindung zu dir selbst gerade ist —
+          ohne Bewertung, ohne richtig oder falsch.
+        </p>
+        <button class="btn-primary" onclick="starteQuiz()">Quiz starten</button>
+        <p class="hero-meta">Kostenlos · Anonym · 3 Minuten</p>
+      </div>
+      <div class="divider"></div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="screen">
+    <div class="page">
+      <div class="quiz-wrap">
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span id="frage-label">Frage 1 von 9</span>
+            <span id="progress-pct">0 %</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="frage-wrap" id="frage-wrap">
+          <p class="frage-kicker" id="frage-kicker">Frage 1</p>
+          <p class="frage-text" id="frage-text"></p>
+          <div class="antworten" id="antworten"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div id="screen-email" class="screen">
+    <div class="page">
+      <div class="email-wrap">
+        <div class="email-box">
+          <h2>Dein Profil ist bereit.</h2>
+          <p>
+            Trag dich ein und ich schicke dir dein Körper-Profil — mit dem passenden nächsten Schritt für genau dich.
+          </p>
+          <form class="email-form" onsubmit="submitEmail(event)">
+            <input type="text" id="input-name" placeholder="Dein Vorname" />
+            <input type="email" id="input-email" placeholder="Deine E-Mail-Adresse" required />
+            <button type="submit" class="email-submit">Ergebnis anzeigen</button>
+          </form>
+          <button class="email-skip" onclick="zeigeErgebnis(null, null)">Ohne E-Mail ansehen</button>
+          <p class="email-datenschutz">Kein Spam. Nur was für dich relevant ist. Abmeldung jederzeit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERGEBNIS -->
+  <div id="screen-result" class="screen">
+    <div class="page">
+      <div class="result-wrap">
+        <div style="padding-top: 56px;">
+          <span class="result-badge" id="result-badge"></span>
+          <h2 class="result-titel" id="result-titel"></h2>
+          <p class="result-text" id="result-text"></p>
+
+          <div class="result-empfehlung">
+            <p class="result-empfehlung-label">Dein nächster Schritt</p>
+            <p id="result-empfehlung"></p>
+          </div>
+
+          <a class="btn-cta" id="result-cta-btn" href="#">—</a>
+
+          <div class="weiteres">
+            <h3>Das war erst der Anfang.</h3>
+            <p>
+              Bei GOLDGESUND findest du Kurse, Tools und Wissen das dich wirklich weiterbringt —
+              entwickelt von einer Osteopathin, für Frauen die ihren Körper endlich verstehen wollen.
+            </p>
+            <a href="https://goldgesund.com" class="btn-secondary" target="_blank">Alle Kurse entdecken</a>
+          </div>
+
+          <button class="nochmal-link" onclick="nochmal()">Quiz nochmal machen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FRAGEN = [
+      {
+        text: "Wenn du morgens aufwachst — was nimmst du als erstes wahr?",
+        antworten: [
+          { text: "Ich spüre sofort wo es zieht oder schmerzt", tag: "koerper" },
+          { text: "Mein Kopf läuft schon auf Hochtouren", tag: "kopf" },
+          { text: "Ein Gefühl — Schwere, Unruhe oder manchmal Leichtigkeit", tag: "gefuehl" },
+          { text: "Meistens nichts Bestimmtes, ich funktioniere einfach", tag: "abgetrennt" },
+        ]
+      },
+      {
+        text: "Stress — wo merkst du ihn zuerst?",
+        antworten: [
+          { text: "Kiefer, Nacken oder Schultern", tag: "koerper" },
+          { text: "Im Bauch — Enge, Kribbeln oder Übelkeit", tag: "bauch" },
+          { text: "Ich denke mehr, grüble, komme nicht zur Ruhe", tag: "kopf" },
+          { text: "Ich merke es eigentlich erst wenn es schon zu viel war", tag: "abgetrennt" },
+        ]
+      },
+      {
+        text: "Wie ist deine Beziehung zu Schmerz?",
+        antworten: [
+          { text: "Ich höre auf ihn — er sagt mir meist etwas", tag: "koerper" },
+          { text: "Ich verdränge ihn so lang wie möglich", tag: "abgetrennt" },
+          { text: "Ich suche sofort nach der Ursache und analysiere", tag: "kopf" },
+          { text: "Er macht mir Angst, ich weiß nie was dahinter steckt", tag: "gefuehl" },
+        ]
+      },
+      {
+        text: "Wenn du tief durchatmest — was passiert?",
+        antworten: [
+          { text: "Sofort etwas Entspannung, ich fühle den Unterschied", tag: "koerper" },
+          { text: "Wenig — ich vergesse meistens zu atmen", tag: "abgetrennt" },
+          { text: "Es hilft kurz, aber die Gedanken kommen gleich zurück", tag: "kopf" },
+          { text: "Manchmal werde ich dabei fast ängstlicher", tag: "gefuehl" },
+        ]
+      },
+      {
+        text: "Dein Bauch — was fällt dir spontan dazu ein?",
+        antworten: [
+          { text: "Er meldet sich oft — mit Unwohlsein, Blähungen oder Enge", tag: "bauch" },
+          { text: "Mein zweites Gehirn, ich vertraue ihm", tag: "koerper" },
+          { text: "Ich denke eigentlich kaum daran", tag: "abgetrennt" },
+          { text: "Er reagiert stark auf Emotionen", tag: "gefuehl" },
+        ]
+      },
+      {
+        text: "Wie gut kannst du Hunger von Appetit unterscheiden?",
+        antworten: [
+          { text: "Sehr gut — ich esse wenn ich wirklich Hunger habe", tag: "koerper" },
+          { text: "Oft esse ich aus Stress oder Langeweile", tag: "gefuehl" },
+          { text: "Ich vergesse manchmal zu essen wenn ich beschäftigt bin", tag: "kopf" },
+          { text: "Ehrlich gesagt weiß ich das gar nicht so genau", tag: "abgetrennt" },
+        ]
+      },
+      {
+        text: "Wenn jemand dich umarmt — wie fühlt sich das an?",
+        antworten: [
+          { text: "Meist gut, ich merke sofort ob ich es gerade brauche", tag: "koerper" },
+          { text: "Schön, aber ich bemerke auch wann es zu viel wird", tag: "gefuehl" },
+          { text: "Ich denke dabei manchmal gar nicht wirklich nach", tag: "abgetrennt" },
+          { text: "Kommt sehr auf die Person und meinen Zustand an", tag: "kopf" },
+        ]
+      },
+      {
+        text: "Abends vor dem Schlafen — was passiert in dir?",
+        antworten: [
+          { text: "Körperliche Anspannung die sich langsam löst — oder auch nicht", tag: "koerper" },
+          { text: "Gedankenkarussell — der Tag wird nochmal durchgegangen", tag: "kopf" },
+          { text: "Emotionen kommen hoch die tagsüber keinen Platz hatten", tag: "gefuehl" },
+          { text: "Ich schlafe meistens einfach ein — oder auch nicht", tag: "abgetrennt" },
+        ]
+      },
+      {
+        text: "Wenn du ehrlich bist — was stimmt am meisten?",
+        antworten: [
+          { text: "Ich lebe viel in meinem Kopf und wenig im Körper", tag: "kopf" },
+          { text: "Mein Körper redet, aber ich verstehe ihn noch nicht immer", tag: "koerper" },
+          { text: "Ich fühle viel — manchmal zu viel", tag: "gefuehl" },
+          { text: "Ich funktioniere gut, aber spüre mich selbst wenig", tag: "abgetrennt" },
+        ]
+      },
+    ];
+
+    const PROFILE = {
+      koerper: {
+        badge: "Du bist schon auf dem Weg",
+        titel: "Dein Körper spricht — und du fängst an zuzuhören",
+        text: "Du hast eine echte Verbindung zu dir. Du nimmst wahr, was in dir vorgeht — Schmerz, Spannung, Hunger, Atem. Das ist keine Selbstverständlichkeit. Und gleichzeitig: da ist noch so viel mehr. Dein Körper hat eine Sprache die viel feiner ist als das was du schon kennst. Die nächste Ebene ist nicht mehr Wissen — sie ist tieferes Vertrauen.",
+        empfehlung: "Du bist bereit für ATEMGOLD — weil du den Körper schon wahrnimmst und jetzt verstehen willst warum er so reagiert wie er reagiert.",
+        cta: "Mehr zu ATEMGOLD",
+        link: "#atemgold"
+      },
+      kopf: {
+        badge: "Du lebst viel im Denken",
+        titel: "Dein Kopf ist brillant — aber er ist nicht dein ganzer Körper",
+        text: "Du analysierst, planst, verstehst Zusammenhänge schnell. Das ist eine echte Stärke. Und gleichzeitig: dein Körper wartet schon eine Weile auf dich. Er schickt dir Signale — Verspannungen, Erschöpfung, Gedankenkarussell abends — die eigentlich Einladungen sind. Keine Defizite. Einladungen.",
+        empfehlung: "'Bewegen ohne Plan' ist dein Einstieg — weil er genau das trainiert: einen Moment im Körper sein ohne ihn zu analysieren.",
+        cta: "Mehr zu Bewegen ohne Plan",
+        link: "#bewegen"
+      },
+      gefuehl: {
+        badge: "Du fühlst tief",
+        titel: "Du bist sehr lebendig — und das kostet manchmal viel",
+        text: "Deine Sensibilität ist ein Geschenk. Du nimmst Stimmungen, Atmosphären, feine Veränderungen wahr bevor andere es tun. Und das gleiche System das dich so lebendig macht, macht dich auch anfällig für Überwältigung. Dein Nervensystem braucht kein Training — es braucht Regulierung. Einen sicheren Ort in dir selbst.",
+        empfehlung: "'Sanft landen' und das Nervensystem-Quiz wären dein perfekter Einstieg.",
+        cta: "Zum Nervensystem-Quiz",
+        link: "#nervensystem-quiz"
+      },
+      abgetrennt: {
+        badge: "Du funktionierst — aber spürst dich wenig",
+        titel: "Du bist nicht abgetrennt — du hast dich nur schützen müssen",
+        text: "Irgendwann hat dein System gelernt: nicht spüren ist sicherer als spüren. Das war wahrscheinlich sinnvoll. Und jetzt, in einem anderen Moment deines Lebens, darfst du langsam zurückkommen. Nicht mit Druck. Nicht mit einem neuen Programm. Sondern mit Neugier. Dein Körper ist nicht dein Feind — er hat nur gelernt zu schweigen.",
+        empfehlung: "'Schmerz verstehen' und 'Bewegen ohne Plan' sind sanfte erste Schritte zurück zu dir.",
+        cta: "Sanft einsteigen",
+        link: "#schmerz"
+      },
+      bauch: {
+        badge: "Dein Bauch meldet sich",
+        titel: "Dein zweites Gehirn versucht schon lange mit dir zu reden",
+        text: "Der Bauch ist nicht nur Verdauung — er ist ein Nervensystem. Er speichert Stress, reagiert auf Emotionen, und versucht dir etwas zu sagen. Du hast eine gute Wahrnehmung dafür. Jetzt geht es darum die Sprache dahinter zu verstehen — warum er sich wann wie anfühlt.",
+        empfehlung: "'Der unterschätzte Bauch' ist genau für dich gemacht.",
+        cta: "Mehr zu Der unterschätzte Bauch",
+        link: "#bauch"
+      }
+    };
+
+    const PROFIL_REIHENFOLGE = ['koerper', 'kopf', 'gefuehl', 'abgetrennt', 'bauch'];
+
+    let aktuelleIndex = 0;
+    let punkte = { koerper: 0, kopf: 0, gefuehl: 0, abgetrennt: 0, bauch: 0 };
+    let ausgewaehlt = false;
+
+    function zeigScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function starteQuiz() {
+      aktuelleIndex = 0;
+      punkte = { koerper: 0, kopf: 0, gefuehl: 0, abgetrennt: 0, bauch: 0 };
+      zeigScreen('screen-quiz');
+      zeigFrage(0);
+    }
+
+    function zeigFrage(index) {
+      const frage = FRAGEN[index];
+      ausgewaehlt = false;
+
+      const pct = Math.round((index / FRAGEN.length) * 100);
+      document.getElementById('frage-label').textContent = `Frage ${index + 1} von ${FRAGEN.length}`;
+      document.getElementById('progress-pct').textContent = `${pct} %`;
+      document.getElementById('progress-fill').style.width = `${pct}%`;
+      document.getElementById('frage-kicker').textContent = `Frage ${index + 1}`;
+      document.getElementById('frage-text').textContent = frage.text;
+
+      const antwortenEl = document.getElementById('antworten');
+      antwortenEl.innerHTML = '';
+      frage.antworten.forEach((a) => {
+        const btn = document.createElement('button');
+        btn.className = 'antwort-btn';
+        btn.innerHTML = `<span class="radio-dot"></span><span class="antwort-text">${a.text}</span>`;
+        btn.onclick = () => waehleAntwort(a.tag, btn);
+        antwortenEl.appendChild(btn);
+      });
+
+      const wrap = document.getElementById('frage-wrap');
+      wrap.style.animation = 'none';
+      wrap.offsetHeight;
+      wrap.style.animation = 'fadeIn 0.25s ease';
+    }
+
+    function waehleAntwort(tag, btn) {
+      if (ausgewaehlt) return;
+      ausgewaehlt = true;
+
+      document.querySelectorAll('.antwort-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      punkte[tag]++;
+
+      setTimeout(() => {
+        aktuelleIndex++;
+        if (aktuelleIndex < FRAGEN.length) {
+          zeigFrage(aktuelleIndex);
+        } else {
+          zeigScreen('screen-email');
+        }
+      }, 300);
+    }
+
+    function berechneProfil() {
+      return PROFIL_REIHENFOLGE.reduce((best, key) =>
+        punkte[key] > punkte[best] ? key : best
+      , PROFIL_REIHENFOLGE[0]);
+    }
+
+    async function submitEmail(e) {
+      e.preventDefault();
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      const profil = berechneProfil();
+
+      // Vorbereitet für Brevo/Mailchimp-Integration
+      console.log('Quiz-Ergebnis:', { name, email, profil, punkte });
+
+      // Später: fetch('/.netlify/functions/subscribe-goldgesund', { method: 'POST', ... })
+
+      zeigeErgebnis(name, email);
+    }
+
+    function zeigeErgebnis(name, email) {
+      const profilKey = berechneProfil();
+      const p = PROFILE[profilKey];
+
+      document.getElementById('result-badge').textContent = p.badge;
+      document.getElementById('result-titel').textContent = p.titel;
+      document.getElementById('result-text').textContent = p.text;
+      document.getElementById('result-empfehlung').textContent = p.empfehlung;
+
+      const ctaBtn = document.getElementById('result-cta-btn');
+      ctaBtn.textContent = p.cta;
+      ctaBtn.href = p.link;
+
+      zeigScreen('screen-result');
+    }
+
+    function nochmal() {
+      zeigScreen('screen-hero');
+    }
+  </script>
+
+</body>
+</html>
